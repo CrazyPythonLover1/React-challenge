@@ -23,7 +23,7 @@ function App() {
     // add data info the mongodb
     try {
       setMessage("");
-      const url = "http://localhost:5000/addInputData";
+      const url = "https://task-backend-ten.vercel.app/addInputData";
       const option = {
         method: "POST",
         body: JSON.stringify(info),
@@ -50,7 +50,7 @@ function App() {
   //get data from database
   const fetchData = () => {
     return axios
-      .get("http://localhost:5000/getInputData")
+      .get("https://task-backend-ten.vercel.app/getInputData")
       .then((response) => setDatas(response.data))
       .catch((error) => console.log(error));
   };
