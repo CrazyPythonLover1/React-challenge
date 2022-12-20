@@ -1,5 +1,5 @@
 .main_body {
-  background-color: aqua;
+  background-color: white;
   height: 100vh;
   width: 100%;
   display: flex;
@@ -11,7 +11,7 @@
   width: 400px;
   background-color: #7430fa;
   color: white;
-  padding: 8px;
+  padding: 40px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
