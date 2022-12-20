@@ -17,22 +17,23 @@
 .submit_btn {
   margin-top: 40px;
   padding: 10px;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 10px;
   text-align: center;
   width: 50%;
   margin: 0 auto;
   border: none;
+  color: black;
 }
 
-.submit_btn:hover {
-  background-color: black;
+/* .submit_btn:hover {
+  background-color: rgb(219, 216, 216);
   color: white;
-}
+} */
 
 .submit_btn:focus {
-  outline: none;
-  box-shadow: none;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 

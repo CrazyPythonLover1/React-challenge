@@ -4,7 +4,9 @@ import "./App.css";
 
 function App() {
   const [message, setMessage] = useState("");
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState([]);
+  const [term, setTerm] = useState(false);
+
   const nameRef = useRef();
   const selecedtDataRef = useRef();
 
@@ -15,8 +17,8 @@ function App() {
     const info = {
       name: nameRef.current.value,
       selecedtData: selecedtDataRef?.current?.value,
+      terms: term,
     };
-    console.log(info);
 
     // add data info the mongodb
     try {
@@ -37,7 +39,8 @@ function App() {
         selecedtDataRef.current.value = "";
         setTimeout(() => {
           setMessage("");
-        }, 3000);
+          window.location.reload();
+        }, 2000);
       }
     } catch (error) {
       console.log("err", error);
@@ -47,16 +50,14 @@ function App() {
   //get data from database
   const fetchData = () => {
     return axios
-      .get("http://localhost:5000/getInputInfo")
-      .then((response) => setData(response.data))
+      .get("http://localhost:5000/getInputData")
+      .then((response) => setDatas(response.data))
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  console.log(data);
 
   return (
     <div className="container main_body">
@@ -106,14 +107,34 @@ function App() {
               </select>
             </div>
 
-            <label htmlFor="terms" className="mt-4">
-              <input type="checkbox" id="term" name="terms" value="false" />
-              Agree to Terms
-            </label>
+            <div className="form-check mt-4">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+                onClick={() => setTerm(!term)}
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                Agree to Terms
+              </label>
+            </div>
+
             <br />
-            <button type="submit" className="submit_btn">
-              Submit
-            </button>
+            {term === false ? (
+              <button
+                type="submit"
+                className="submit_btn"
+                disabled
+                title="Tap to the agree checkbox"
+              >
+                Submit
+              </button>
+            ) : (
+              <button type="submit" className="submit_btn">
+                Submit
+              </button>
+            )}
             <p className="successMsg pt-3">{message}</p>
           </form>
         </div>
@@ -125,16 +146,16 @@ function App() {
                 <th scope="col">No.</th>
                 <th scope="col">Name</th>
                 <th scope="col">Sector</th>
-                <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
+              {datas.map((data, index) => (
+                <tr key={data._id}>
+                  <th scope="row">{index + 1}</th>
+                  <td>{data?.name}</td>
+                  <td>{data?.selecedtData}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
