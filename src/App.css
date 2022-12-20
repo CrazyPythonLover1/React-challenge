@@ -1,0 +1,43 @@
+.main_body {
+  background-color: aqua;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form_body {
+  height: 60vh;
+  width: 400px;
+  background-color: #7430fa;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.submit_btn {
+  margin-top: 40px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  border: none;
+}
+
+.submit_btn:hover {
+  background-color: black;
+  color: white;
+}
+
+.submit_btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.successMsg {
+  color: green;
+}
