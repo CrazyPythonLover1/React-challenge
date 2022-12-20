@@ -1,15 +1,11 @@
 .main_body {
-  background-color: white;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 60px;
 }
 .form_body {
   height: 60vh;
-  width: 400px;
+  width: 100%;
   background-color: #7430fa;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: white;
   padding: 40px;
   border-radius: 10px;
@@ -38,6 +34,10 @@
   outline: none;
   box-shadow: none;
 }
+
+
+
 .successMsg {
-  color: green;
+  color: black;
+  text-align: center;
 }
