@@ -63,7 +63,9 @@ function App() {
   }, []);
 
   //edit data
-  const handleEdit = () => {
+  const handleEdit = (e) => {
+    e.preventDefault();
+
     const editedData = {
       editName: EditNameRef.current.value,
       editSelecedtData: EditSelecedtDataRef.current.value,
@@ -82,7 +84,7 @@ function App() {
         if (result) {
           EditNameRef.current.value = "";
           EditSelecedtDataRef.current.value = "";
-          // window.location.reload();
+          window.location.reload();
         }
       });
   };
