@@ -31,6 +31,18 @@
   color: white;
 } */
 
+.Edit_btn {
+  padding: 5px;
+  background-color: #7430fa;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
+.Edit_btn:hover {
+  background-color: #9160f3;
+}
+
 .submit_btn:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -39,4 +51,14 @@
 .successMsg {
   color: black;
   text-align: center;
+}
+.edit_close_btn,
+.edit_submit_btn {
+  background-color: white;
+  color: black;
+}
+.edit_close_btn:hover,
+.edit_submit_btn:hover {
+  background-color: rgb(235, 223, 223);
+  color: black;
 }

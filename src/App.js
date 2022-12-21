@@ -4,11 +4,14 @@ import "./App.css";
 
 function App() {
   const [message, setMessage] = useState("");
+  const [singleId, setSingleId] = useState("");
   const [datas, setDatas] = useState([]);
   const [term, setTerm] = useState(false);
 
   const nameRef = useRef();
   const selecedtDataRef = useRef();
+  const EditNameRef = useRef();
+  const EditSelecedtDataRef = useRef();
 
   // handle submit
   const handleSubmit = async (e) => {
@@ -58,6 +61,31 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  //edit data
+  const handleEdit = () => {
+    const editedData = {
+      editName: EditNameRef.current.value,
+      editSelecedtData: EditSelecedtDataRef.current.value,
+      id: singleId,
+    };
+
+    fetch(`https://task-backend-ten.vercel.app/updateData/${singleId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedData),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result) {
+          EditNameRef.current.value = "";
+          EditSelecedtDataRef.current.value = "";
+          // window.location.reload();
+        }
+      });
+  };
 
   return (
     <div className="container main_body">
@@ -115,7 +143,7 @@ function App() {
                 id="flexCheckDefault"
                 onClick={() => setTerm(!term)}
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" htmlFor="flexCheckDefault">
                 Agree to Terms
               </label>
             </div>
@@ -146,6 +174,7 @@ function App() {
                 <th scope="col">No.</th>
                 <th scope="col">Name</th>
                 <th scope="col">Sector</th>
+                <th scope="col">Edit</th>
               </tr>
             </thead>
             <tbody>
@@ -154,10 +183,108 @@ function App() {
                   <th scope="row">{index + 1}</th>
                   <td>{data?.name}</td>
                   <td>{data?.selecedtData}</td>
+                  <td>
+                    <button
+                      className="Edit_btn"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdrop"
+                      onClick={() => setSingleId(data?._id)}
+                    >
+                      Edit
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+          {/* <!-- Modal --> */}
+          <div
+            className="modal fade"
+            id="staticBackdrop"
+            data-bs-backdrop="static"
+            data-bs-keyboard="false"
+            tabIndex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="staticBackdropLabel">
+                    EDIT DATA
+                  </h1>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                {/* modal body */}
+                <div className="modal-body">
+                  <form className="form_body" onSubmit={handleEdit}>
+                    <div>
+                      <label htmlFor="fname" className="form-label">
+                        Name:
+                      </label>
+                      <input
+                        ref={EditNameRef}
+                        type="text"
+                        id="fname"
+                        name="name"
+                        placeholder="name"
+                        className="form-control"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="select" className="form-label mt-2">
+                        Select:
+                      </label>
+
+                      <select
+                        id="select"
+                        name="selectedData"
+                        className="input-group form-select"
+                        ref={EditSelecedtDataRef}
+                        required
+                      >
+                        <option value="">Select Your Sector</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Construction materials">
+                          Construction materials
+                        </option>
+                        <option value="Electronics and Optics">
+                          Electronics and Optics
+                        </option>
+                        <option value="Food and Beverage">
+                          Food and Beverage
+                        </option>
+                        <option value="Bakery confectionery products">
+                          Bakery confectionery products
+                        </option>
+                        <option value="Beverages">Beverages</option>
+                      </select>
+                    </div>
+                    <div className="modal-footer pt-5">
+                      <button
+                        type="button"
+                        className="btn edit_close_btn"
+                        data-bs-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                      <button type="submit" className="btn edit_submit_btn">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
